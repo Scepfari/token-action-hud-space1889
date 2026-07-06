@@ -1,0 +1,77 @@
+{
+	"id": "token-action-hud-space1889",
+	"title": "Token Action HUD SPACE 1889",
+	"description": "Token Action HUD is a repositionable HUD of actions for a selected token",
+	"authors": [
+		{
+			"name": "Larkinabout",
+			"url": "https://github.com/Larkinabout"
+		},
+		{
+			"name": "Scepfari",
+			"discord": "Scepfari#1283"
+		}
+	],
+	"url": "https://github.com/Scepfari/token-action-hud-space1889",
+	"flags": {},
+	"version": "0.1.0",
+	"compatibility": {
+		"minimum": "13",
+		"verified": "13.348"
+	},
+	"esmodules": [
+		"./scripts/init.js"
+	],
+	"scripts": [
+	],
+	"styles": [
+		"./styles/tah-space1889.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "languages/en.json"
+		},
+		{
+			"lang": "de",
+			"name": "Deutsch",
+			"path": "languages/de.json"
+		}
+	],
+	"packs": [],
+	"relationships": {
+		"systems": [
+			{
+				"id": "space1889",
+				"type": "system",
+				"compatibility": {
+					"minimum": "3.0.0",
+					"verified": "3.1.0"
+				}
+			}
+		],
+		"requires": [
+			{
+				"id": "token-action-hud-core",
+				"type": "module",
+				"compatibility": {
+					"minimum": "2.0.11",
+					"verified": "2.1.1"
+				}
+			}
+		],
+		"optional": [],
+		"flags": {
+			"optional": []
+		}
+	},
+	"socket": false,
+	"manifest": "https://github.com/Scepfari/token-action-hud-space1889/releases/latest/download/module.json",
+	"download": "https://github.com/Scepfari/token-action-hud-space1889/releases/download/0.1.0/tah-space1889-0.1.0.zip",
+	"readme": "https://github.com/Scepfari/token-action-hud-space1889#readme",
+	"bugs": "https://github.com/Scepfari/token-action-hud-space1889/issues",
+	"protected": false,
+	"coreTranslation": false,
+	"library": false
+}

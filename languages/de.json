@@ -1,0 +1,31 @@
+{
+	"tokenActionHud": {
+		"space1889": {
+			"armor": "Rüstung",
+			"attributes": "Attribute",
+			"primaryAttributes": "Primäre Attribute",
+			"secondaryAttributes": "Sekundäre Attribute",
+			"skills": "Fertigkeiten",
+			"specialization": "Spezialisierungen",
+			"talents": "Talente",
+			"fight": "Kampf",
+			"defense": "Abwehr",
+			"damage": "Schaden",
+			"containers": "Behälter",
+			"consumables": "Consumables",
+			"equipment": "Ausrüstung",
+			"inventory": "Inventar",
+			"item": "Gegenstand",
+			"lightSources": "Lichtquellen",
+			"visions": "Sichtverbesserungen",
+			"weapons": "Waffen",
+			"shields": "Schilde",
+			"settings": {
+				"displayUnequipped": {
+					"hint": "Choose whether to display unequipped items on the HUD",
+					"name": "Display Unequipped"
+				}
+			}
+		}
+	}
+}
