@@ -62,6 +62,22 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				]
 			},
 			{
+				nestId: 'crew',
+				id: 'crew',
+				name: coreModule.api.Utils.i18n('tokenActionHud.space1889.crew'),
+				groups: [
+					{ ...groups.vehicleCrew, nestId: 'crew_vehicleCrew' },
+				]
+			},
+			{
+				nestId: 'manoeuvre',
+				id: 'manoeuvre',
+				name: coreModule.api.Utils.i18n('tokenActionHud.space1889.manoeuvre'),
+				groups: [
+					{ ...groups.manoeuvre, nestId: 'manoeuvre_manoeuvre' },
+				]
+			},
+			{
 				nestId: 'utility',
 				id: 'utility',
 				name: coreModule.api.Utils.i18n('tokenActionHud.utility'),

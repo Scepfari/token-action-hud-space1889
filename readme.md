@@ -1,5 +1,5 @@
 # Introduction
-A plug-in module for the Foundry VTT module [Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)  which adds support for the SPACE 1889.
+A plug-in module for the Foundry VTT module [Token Action HUD Core](https://foundryvtt.com/packages/token-action-hud-core)  which adds support for the SPACE 1889 system.
 
 If you want to learn how to use Token HUD, please check this wiki [Token HUD tutorials](https://github.com/Larkinabout/fvtt-token-action-hud-core/wiki/How-to-Use-Token-Action-HUD).
 

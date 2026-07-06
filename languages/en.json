@@ -20,6 +20,8 @@
 			"visions": "Vision Improvements",
 			"weapons": "Weapons",
 			"shields": "Shields",
+			"manoeuvre": "Manoeuvre",
+			"crew": "Crew",
 			"settings": {
 				"displayUnequipped": {
 					"hint": "Choose whether to display unequipped items on the HUD",

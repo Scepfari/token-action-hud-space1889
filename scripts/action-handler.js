@@ -62,6 +62,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 
 		#buildVehicleActions()
 		{
+			this.#buildVehicleCrew();
 			this.#buildManoeuvre();
 		}
 
@@ -424,7 +425,68 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 
 		async #buildManoeuvre()
 		{
-			return false;
+			if (!this.actor || this.actor.type != "vehicle")
+				return;
+
+			let type = "manoeuvre";
+			const manoeuvres = Object.entries(game.space1889.config.vehicleManoeuvres);
+			const groupData = { id: type, type: 'system' };
+
+			// Get actions
+			const actions = [...manoeuvres].map(([key, langId]) =>
+			{
+				const tooltip = `<p>${game.i18n.localize(langId + "Desc")}</p>`;
+				const name = game.i18n.localize(langId);
+				let infoText = "";
+				if (key === 'defense')
+					infoText = `(${this.actor?.derived?.secondaries?.defense?.total})`;
+				else if (key === 'totalDefense')
+					infoText = `(${this.actor?.derived?.secondaries?.defense?.totalDefense})`;
+
+				return {
+					id: key,
+					name: name,
+					encodedValue: [type, key].join(this.delimiter),
+					info1: {
+						text: infoText,
+					},
+					tooltip: { content: tooltip }
+				}
+			});
+
+			// TAH Core method to add actions to the action list
+			this.addActions(actions, groupData);
+		}
+
+		#buildVehicleCrew()
+		{
+			if (!this.actor || this.actor.type != "vehicle")
+				return;
+
+			let type = "vehicleCrew";
+			const crew = Object.entries(game.space1889.config.vehicleCrewPositions);
+			const groupData = { id: type, type: 'system' };
+
+			// Get actions
+			const actions = [...crew].map(([key, langId]) =>
+			{
+				const tooltip = `<p>${game.i18n.localize(langId + "Desc")}</p>`;
+				const name = game.i18n.localize(langId);
+				let diceCount = this.actor.derived?.positions[key]?.total != undefined ? this.actor.derived.positions[key].total : 0;
+
+				return {
+					id: key,
+					name: name,
+					encodedValue: [type, key].join(this.delimiter),
+					info1: {
+						text: `(${diceCount})`,
+					},
+					tooltip: { content: tooltip }
+				}
+			});
+
+			// TAH Core method to add actions to the action list
+			this.addActions(actions, groupData);
 		}
 
 		#isHeld(item, actorType, ignoreActorType = false)

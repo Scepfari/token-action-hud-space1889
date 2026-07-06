@@ -20,6 +20,8 @@
 			"visions": "Sichtverbesserungen",
 			"weapons": "Waffen",
 			"shields": "Schilde",
+			"manoeuvre": "Manöver",
+			"crew": "Besatzung",
 			"settings": {
 				"displayUnequipped": {
 					"hint": "Choose whether to display unequipped items on the HUD",

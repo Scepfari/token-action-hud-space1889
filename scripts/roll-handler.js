@@ -100,6 +100,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				case 'manoeuvre':
 					this.#handleManoeuvreAction(event, actor, actionId)
 					break;
+				case 'vehicleCrew':
+					this.#handleVehicleCrewAction(event, actor, actionId)
+					break;
 				case 'defense':
 					this.#handleDefenseAction(event, actor, actionId)
 					break;
@@ -206,6 +209,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		#handleManoeuvreAction(event, actor, actionId)
 		{
 			actor.rollManoeuvre(actionId, event);
+		}
+
+		/**
+		 * Handle manoeuvre action
+		 * @private
+		 * @param {object} event    The event
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The action id
+		 */
+		#handleVehicleCrewAction(event, actor, actionId)
+		{
+			actor.rollCrew(actionId, event);
 		}
 
 		/**
