@@ -319,7 +319,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 					let name = "";
 					if (['block', 'parry', 'evasion'].includes(key))
 					{
-						tooltip = data.info;
+						tooltip = `<p>${data.info}</p>`;
 						diceCount = data.value;
 						name = data.label;
 					}
