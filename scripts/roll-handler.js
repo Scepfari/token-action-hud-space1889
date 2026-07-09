@@ -77,40 +77,46 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 			switch (actionTypeId)
 			{
 				case 'primary':
-					this.#handlePrimaryAction(event, actor, actionId)
+					this.#handlePrimaryAction(event, actor, actionId);
 					break;
 				case 'secondary':
-					this.#handleSecondaryAction(event, actor, actionId)
+					this.#handleSecondaryAction(event, actor, actionId);
 					break;
 				case 'skill':
-					this.#handleSkillAction(event, actor, actionId)
+					this.#handleSkillAction(event, actor, actionId);
 					break;
 				case 'specialization':
 					this.#handleSpecializationAction(event, actor, actionId)
 					break;
+				case 'generalSkill':
+					this.#handleGeneralSkillAction(actor);
+					break;
 				case 'talent':
 					this.#handleTalentAction(event, actor, actionId)
 					break;
+				case 'extendedActions':
+					this.#handleExtendedAction(event, actor, actionId)
+					break;
 				case 'weapon':
-					this.#handleWeaponAction(event, actor, actionId)
+					this.#handleWeaponAction(event, actor, actionId);
 					break;
 				case 'damage':
-					this.#handleDamageAction(event, actor, actionId)
+					this.#handleDamageAction(event, actor, actionId);
 					break;
 				case 'manoeuvre':
-					this.#handleManoeuvreAction(event, actor, actionId)
+					this.#handleManoeuvreAction(event, actor, actionId);
 					break;
 				case 'vehicleCrew':
-					this.#handleVehicleCrewAction(event, actor, actionId)
+					this.#handleVehicleCrewAction(event, actor, actionId);
 					break;
 				case 'defense':
-					this.#handleDefenseAction(event, actor, actionId)
+					this.#handleDefenseAction(event, actor, actionId);
 					break;
 				case 'item':
-					this.#handleItemAction(event, actor, actionId)
+					this.#handleItemAction(event, actor, actionId);
 					break
 				case 'utility':
-					this.#handleUtilityAction(token, actionId)
+					this.#handleUtilityAction(token, actionId);
 					break
 			}
 		}
@@ -166,6 +172,17 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		/**
 		 * Handle talent action
 		 * @private
+		 * @param {object} actor    The actor
+		 */
+
+		#handleGeneralSkillAction(actor)
+		{
+			actor.rollAnySkill();
+		}
+
+		/**
+		 * Handle talent action
+		 * @private
 		 * @param {object} event    The event
 		 * @param {object} actor    The actor
 		 * @param {string} actionId The action id
@@ -173,6 +190,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		#handleTalentAction(event, actor, actionId)
 		{
 			actor.rollTalent(actionId, event);
+		}
+
+		/**
+		 * Handle talent action
+		 * @private
+		 * @param {object} event    The event
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The action id
+		 */
+		#handleExtendedAction(event, actor, actionId)
+		{
+			actor.rollExtendedAction(actionId, event);
 		}
 
 		/**

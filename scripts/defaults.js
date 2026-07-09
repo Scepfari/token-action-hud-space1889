@@ -32,7 +32,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				name: coreModule.api.Utils.i18n('tokenActionHud.space1889.skills'),
 				groups: [
 					{ ...groups.skill, nestId: 'skills_skill' },
-					{ ...groups.specialization, nestId: 'skills_specialization' }
+					{ ...groups.specialization, nestId: 'skills_specialization' },
+					{ ...groups.generalSkill, nestId: 'skills_generalSkill' }
+				]
+			},
+			{
+				nestId: 'extendedAction',
+				id: 'extendedAction',
+				name: coreModule.api.Utils.i18n('tokenActionHud.space1889.extendedActions'),
+				groups: [
+					{ ...groups.extendedActions, nestId: 'extendedAction_extendedActions' },
 				]
 			},
 			{

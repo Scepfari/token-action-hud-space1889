@@ -56,6 +56,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		{
 			this.#buildAttributes();
 			this.#buildSkills();
+			this.#buildExtendedActions();
 			this.#buildFight();
 			this.#buildInventory();
 		}
@@ -303,12 +304,6 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				const groupData = { id: groupId, type: 'system' }
 				let encodeType = this.#getEncodeType(type);
 
-				const dummy = {
-					'fightTalent': 'talent',
-					'fightShields': 'weapon',
-					'fightWeapons': 'weapon',
-				}
-
 				// Get actions
 				const actions = [...typeMap].map(([key, data]) =>
 				{
@@ -380,11 +375,15 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 			type = "specialization";
 			for (const spezi of this.actor.speciSkills)
 			{
-				//				if (spezi.system.underlyingSkillId == skill.system.id)
 				const speziMap = theMap.get(type) ?? new Map();
 				speziMap.set(spezi.system.id, spezi);
 				theMap.set(type, speziMap);
 			}
+
+			type = "generalSkill";
+			const genMap = theMap.get(type) ?? new Map();
+			genMap.set("idDieKeinerBraucht", {});
+			theMap.set(type, genMap);
 
 
 			for (const [type, typeMap] of theMap)
@@ -395,11 +394,16 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 
 				const groupData = { id: groupId, type: 'system' };
 
-				// Get actions
 				const actions = [...typeMap].map(([key, skillData]) =>
 				{
 					let tooltip = "";
-					if (type == "skill")
+					let name = type == "generalSkill" ? game.i18n.localize("SPACE1889.KeyRollAnySkill") : skillData.derived.label;
+					let infoText = type == "generalSkill" ?  "" : `(${skillData.system.rating})`;
+					if (type == "generalSkill")
+					{
+						tooltip = `<p>${game.i18n.localize("SPACE1889.InfoRollAnySkill")}</p>`;
+					}
+					else if (type == "skill")
 						tooltip = skillData.getInfoText(false);
 					else
 					{
@@ -407,18 +411,62 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 						if (skillItem)
 							tooltip = skillItem.derived.label;
 					}
+
 					return {
 						id: key,
-						name: skillData.derived.label,
+						name: name,
 						encodedValue: [type, key].join(this.delimiter),
 						info1: {
-							text: '(' + skillData.system.rating + ')',
+							text: infoText
 						},
 						tooltip: { content: tooltip }
 					}
 				});
 
 				// TAH Core method to add actions to the action list
+				this.addActions(actions, groupData);
+			}
+		}
+
+		async #buildExtendedActions()
+		{
+			if (!this.actor)
+				return;
+
+			const theMap = new Map();
+			let type = "extendedActions";
+			for (const extendedAction of this.actor.extendedActions) 
+			{
+				const finished = extendedAction.system.successes >= extendedAction.system.totalNumberOfSuccesses;
+				if (finished)
+					continue;
+
+				const map = theMap.get(type) ?? new Map();
+				map.set(extendedAction.id, extendedAction);
+				theMap.set(type, map);
+			}
+
+			for (const [type, typeMap] of theMap)
+			{
+				const groupId = type;
+				if (!groupId)
+					continue;
+
+				const groupData = { id: groupId, type: 'system' };
+
+				const actions = [...typeMap].map(([key, data]) =>
+				{
+					return {
+						id: key,
+						name: data.derived.label,
+						encodedValue: [type, key].join(this.delimiter),
+						info1: {
+							text: `(${data.system.successes} / ${data.system.totalNumberOfSuccesses})`
+						},
+						tooltip: { content: data.getInfoText(false) }
+					}
+				});
+
 				this.addActions(actions, groupData);
 			}
 		}
