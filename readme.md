@@ -16,7 +16,7 @@ https://github.com/Scepfari/token-action-hud-space1889/releases/latest/download/
 ## Requirements
 * Foundry VTT Version 13+
 * [Space1889 system](https://github.com/Scepfari/SPACE1889-FVTT/releases/latest/download/system.json): Version >= 3.1.0
-* [Token Action HUD Core](https://github.com/Larkinabout/fvtt-token-action-hud-core/releases/latest/download/module.json): Version >= 2.0.16 
+* [Token Action HUD Core](https://github.com/Larkinabout/fvtt-token-action-hud-core/releases/latest/download/module.json): Version >= 2 
 
 ### Info
 Startpoint for this module was the [Token Action HUD Template](https://github.com/Larkinabout/fvtt-token-action-hud-template) from Larkinabout.
