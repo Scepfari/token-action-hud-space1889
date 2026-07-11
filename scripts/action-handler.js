@@ -342,6 +342,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 							icon = `<i class="${data.system.usedHandsIcon}" title="${data.system.usedHandsInfo}"></i>`;
 						}
 					}
+					const image = (type == "fightWeapons" || type == "fightShields" ?  data.img : "");
+
 					return {
 						id: key,
 						name: name,
@@ -350,12 +352,58 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 							text: diceCount != null ? `(${diceCount})` : "",
 						},
 						icon1: icon,
+						img: image,
 						tooltip: { content: tooltip }
 					}
 				});
 
 				// TAH Core method to add actions to the action list
 				this.addActions(actions, groupData);
+			}
+
+			type = "combatManeuvers";
+			if (this.actor.type == "character" || this.actor.type == "npc")
+			{
+				const hasFreeHands = this.actor.hasFreeHands();
+				let key = "grapple";
+				let actions = [];
+				if (hasFreeHands)
+				{
+					actions.push({
+						id: key,
+						name: game.i18n.localize("SPACE1889.CombatManoeuversGrapple"),
+						encodedValue: [type, key].join(this.delimiter),
+						img: "icons/svg/net.svg"
+					});
+				}
+
+				key = "trip";
+				actions.push({
+						id: key,
+						name: game.i18n.localize("SPACE1889.CombatManoeuversTrip"),
+						encodedValue: [type, key].join(this.delimiter),
+						img: "icons/svg/falling.svg"
+					});
+
+				const weapons = this.actor.getWeaponInHands();
+				key = "disarm";
+				let disarmWeaponId = this.actor.isCloseCombatWeapon(weapons.primaryWeapon, false) ? weapons.primaryWeapon.id : "";
+				if (disarmWeaponId === "")
+					disarmWeaponId = this.actor.isCloseCombatWeapon(weapons.offHandWeapon, false) ? weapons.offHandWeapon.id : "";
+
+				if (hasFreeHands || disarmWeaponId !== "")
+				{
+//					const disarmAction = { name: disarmName, itemId: disarmWeaponId, image: "systems/space1889/icons/svg/drop-weapon.svg", type: "disarm", tooltip: disarmName };
+					actions.push({
+						id: key,
+						name: game.i18n.localize("SPACE1889.CombatManoeuversDisarm"),
+						encodedValue: [type, key].join(this.delimiter),
+						img: "systems/space1889/icons/svg/drop-weapon.svg"
+					});
+				}
+
+				this.addActions(actions, { id: type, type: 'system' });
+
 			}
 		}
 

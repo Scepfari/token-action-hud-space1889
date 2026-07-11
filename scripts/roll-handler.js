@@ -100,6 +100,9 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				case 'weapon':
 					this.#handleWeaponAction(event, actor, actionId);
 					break;
+				case 'combatManeuvers':
+					this.#handleCombatManeuvers(event, actor, actionId, token.document);
+					break;
 				case 'damage':
 					this.#handleDamageAction(event, actor, actionId);
 					break;
@@ -214,6 +217,19 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		#handleWeaponAction(event, actor, actionId)
 		{
 			actor.rollAttack(actionId, event);
+		}
+
+		/**
+		 * Handle weapon action
+		 * @private
+		 * @param {object} event    The event
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The action id
+		 * @param {object} tokenDocument The token document of the actor
+		 */
+		#handleCombatManeuvers(event, actor, actionId, tokenDocument)
+		{
+			actor.rollCombatManeuver(actionId, tokenDocument, event);
 		}
 
 		/**

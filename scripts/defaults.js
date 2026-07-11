@@ -51,6 +51,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 				groups: [
 					{ ...groups.fightWeapons, nestId: 'fight_fightWeapons' },
 					{ ...groups.fightShields, nestId: 'fight_fightShields' },
+					{ ...groups.combatManeuvers, nestId: 'fight_combatManeuvers' },
 					{ ...groups.fightTalent, nestId: 'fight_fightTalents' },
 					{ ...groups.defense, nestId: 'fight_defense' },
 					{ ...groups.damage, nestId: 'fight_damage' }

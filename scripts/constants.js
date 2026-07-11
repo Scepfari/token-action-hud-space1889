@@ -50,6 +50,7 @@ export const GROUP = {
 	fightShields: { id: 'fightShields', name: 'tokenActionHud.space1889.shields', type: 'system' },
 	fightWeapons: { id: 'fightWeapons', name: 'tokenActionHud.space1889.weapons', type: 'system' },
 	defense: { id: 'defense', name: 'tokenActionHud.space1889.defense', type: 'system' },
+	combatManeuvers: { id: 'combatManeuvers', name: 'tokenActionHud.space1889.combatManeuvers', type: 'system' },
 	damage: { id: 'damage', name: 'tokenActionHud.space1889.damage', type: 'system' },
 	manoeuvre: { id: 'manoeuvre', name: 'tokenActionHud.space1889.manoeuvre', type: 'system' },
 	vehicleCrew: { id: 'vehicleCrew', name: 'tokenActionHud.space1889.crew', type: 'system' },
