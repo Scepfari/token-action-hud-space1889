@@ -20,10 +20,10 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 
 			const renderable = ['item']
 
-			if (renderable.includes(actionTypeId) && this.isRenderItem())
-			{
-				return this.doRenderItem(this.actor, actionId)
-			}
+
+			// Do nothing on right click
+			if (this.isRightClick && actionTypeId !== 'item')
+				return; 
 
 			const knownCharacters = ['character']
 
@@ -229,7 +229,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		 */
 		#handleCombatManeuvers(event, actor, actionId, tokenDocument)
 		{
-			actor.rollCombatManeuver(actionId, tokenDocument, event);
+			actor.rollCombatManoeuver(actionId, tokenDocument, event);
 		}
 
 		/**
@@ -289,8 +289,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 		 */
 		#handleItemAction(event, actor, actionId)
 		{
-			const item = actor.items.get(actionId)
-			actor.rollItemInfo(item);
+			const item = actor.items.get(actionId);
+
+			if (!this.isAlt && ["lightSource", "shield", "weapon"].includes(item.type) && ["character", "npc"].includes(actor.type))
+				actor.setWeaponHand(item, this.isRightClick);
+			else
+				actor.rollItemInfo(item);
 		}
 
 		/**

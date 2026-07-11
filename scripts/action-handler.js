@@ -116,12 +116,18 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 					const name = itemData.name
 					const encodedValue = [actionTypeId, id].join(this.delimiter)
 					const tooltip = itemData.getInfoText(false);
+					let icon = "";
+
+					const isHeld = ["lightSource", "shield", "weapon"].includes(type) && this.#isHeld(itemData, this.actor.type, true);
+					if (isHeld)
+						icon = `<i class="${itemData.system.usedHandsIcon}" title="${itemData.system.usedHandsInfo}"></i>`;
 
 					return {
 						id,
 						name,
 						encodedValue,
-						tooltip: { content: tooltip }
+						tooltip: { content: tooltip },
+						icon1: icon,
 					};
 				})
 
@@ -373,7 +379,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 						id: key,
 						name: game.i18n.localize("SPACE1889.CombatManoeuversGrapple"),
 						encodedValue: [type, key].join(this.delimiter),
-						img: "icons/svg/net.svg"
+						img: "icons/svg/net.svg",
+						tooltip: { content: this.actor.getCombatManoeuverInfoText(key) }
 					});
 				}
 
@@ -382,7 +389,8 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 						id: key,
 						name: game.i18n.localize("SPACE1889.CombatManoeuversTrip"),
 						encodedValue: [type, key].join(this.delimiter),
-						img: "icons/svg/falling.svg"
+						img: "icons/svg/falling.svg",
+						tooltip: { content: this.actor.getCombatManoeuverInfoText(key) }
 					});
 
 				const weapons = this.actor.getWeaponInHands();
@@ -393,12 +401,12 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 
 				if (hasFreeHands || disarmWeaponId !== "")
 				{
-//					const disarmAction = { name: disarmName, itemId: disarmWeaponId, image: "systems/space1889/icons/svg/drop-weapon.svg", type: "disarm", tooltip: disarmName };
 					actions.push({
 						id: key,
 						name: game.i18n.localize("SPACE1889.CombatManoeuversDisarm"),
 						encodedValue: [type, key].join(this.delimiter),
-						img: "systems/space1889/icons/svg/drop-weapon.svg"
+						img: "systems/space1889/icons/svg/drop-weapon.svg",
+						tooltip: { content: this.actor.getCombatManoeuverInfoText(key) }
 					});
 				}
 
@@ -509,7 +517,7 @@ Hooks.once('tokenActionHudCoreApiReady', async (coreModule) =>
 						name: data.derived.label,
 						encodedValue: [type, key].join(this.delimiter),
 						info1: {
-							text: `(${data.system.successes} / ${data.system.totalNumberOfSuccesses})`
+							text: `(${data.system.successes}/${data.system.totalNumberOfSuccesses})`
 						},
 						tooltip: { content: data.getInfoText(false) }
 					}
